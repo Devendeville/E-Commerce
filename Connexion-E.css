@@ -1,8 +1,10 @@
 * {
     box-sizing: border-box;
 }
+
 body {
-    background-color: rgb(237, 237, 248);
+    background-color: rgb(255, 233, 220);
+    
   }
 
 .formulaire 
@@ -10,7 +12,7 @@ body {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgb(118, 118, 124);
+    background-color: rgb(40, 94, 145);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 40px;
 }
@@ -19,12 +21,16 @@ h1
 {
     text-align: center;
     margin-bottom: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(184, 8, 8);
 }
   
 label 
 {
     display: block;
     margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(184, 8, 8);
 }
 
 input 
@@ -57,5 +63,14 @@ input[type="submit"]:hover
     vertical-align: middle;
 }
 
+title {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(184, 8, 8);
+}
+
+a {
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(184, 8, 8);
+}
   
   

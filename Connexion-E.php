@@ -61,6 +61,7 @@ try {
                 ?>
             </p>
         </form>
+        <a href="http://localhost/E-Commerce/Inscription-E.php">S'inscrire →</a>
         <script>
             //L'oeil masqué
             e=true;
