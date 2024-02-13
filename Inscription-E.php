@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Inscription</title>
-	<link rel="stylesheet" href="Inscription-E.css"/>
+	<link rel="stylesheet" type="text/css" href="Inscription-E.css"/>
 </head>
 
 <?php
@@ -42,7 +42,7 @@ try {
                         $RecupLog->execute([$nom, $prenom, $email, $mdp]);
                         // Stocker l'ID de l'utilisateur dans la session
                         $_SESSION['IdClt'] = $mysqlClient->lastInsertId();
-                        // Rediriger vers la page de connexion
+                        // Redirige vers la page de connexion
                         header("Location: Connexion-E.php");
                     }
                 }

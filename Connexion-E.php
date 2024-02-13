@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="Connexion-E.css">
+    <link rel="stylesheet"  type="text/css" href="Connexion-E.css">
 </head>
 <?php
 try {
