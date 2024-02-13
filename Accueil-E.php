@@ -12,43 +12,106 @@ try
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta charset="utf-8">
-	<title>Accueil-E</title>
-	<link rel="stylesheet" type="text/css" href="Accueil-E.css"/>
-</head>
-<body>
+    <head>
+	    <meta charset="utf-8">
+	    <title>Accueil-E</title>
+	    <link rel="stylesheet" type="text/css" href="Accueil-E.css"/>
+    </head>
+    <body>
 
-    <h1>Le monde est vache</h1>
-    <div class="button-group">
-        <input type="submit" name="Inscription" value="Inscription"class="submit">
-        <input type="submit" name="Inscription" value="Connexion"classe="submit">
-    </div>
-    <div class = "formulaire">
-        <form method ="POST">
+        <h1>Le monde est vache</h1>
+        <div class="button-group">
+            <input type="submit" name="Inscription" value="Inscription"class="submit">
+            <input type="submit" name="Inscription" value="Connexion"classe="submit">
+        </div>
+        <div class = "formulaire">
+            <form method ="POST">
+            </form>
+        </div>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Rechercher..." placeholder="Rechercher...">
+            <input type="submit" value="Rechercher">
         </form>
-    </div>
-    <form id="search-form">
-        <input type="text" id="search-input" placeholder="Rechercher..." placeholder="Rechercher...">
-        <input type="submit" value="Rechercher">
-    </form>
-    <div>
-    <div><h2>Filtres</h2></div>
-    <div><i class="sexe"></i><div>Sexe</div></div>
-    <div><i class="motif"></i><div>Motif</div></div>
-    <div><i class="type"></i><div>Type</div></div>
-    <div><i class="taille"></i><div>Taille</div></div>
-    </div>
+        <div class="filtre">
+        <div><h2>Filtres</h2></div>
+        <div><img src="image/sexe.png" class="sexe"><div>Sexe</div></div>
+        <div><img src="image/motif.png" class="motif"><div>Motif</div></div>
+        <div><img src="image/type.png" class="type"><div>Type</div></div>
+        <div><img src="image/taille.png" class="taille"><div>Taille</div></div>
+        </div>
     
-    <!--image de l'accueil-->
-    <div class="article-container">
-        <img src="article1.jpg" alt="Article 1" class="article-thumbnail" data-article-id="1">
-        <img src="article2.jpg" alt="Article 2" class="article-thumbnail" data-article-id="2">
-        <img src="article3.jpg" alt="Article 3" class="article-thumbnail" data-article-id="3">
-        <img src="article4.jpg" alt="Article 4" class="article-thumbnail" data-article-id="4">
-    </div>
+        <!--image de l'accueil-->
+        <div class="article-container">
+            <img src="image/mot1_punkachat.png" alt="Article 1" class="article-thumbnail" data-article-id="1">
+            <img src="image/mot2_voiture.png" alt="Article 2" class="article-thumbnail" data-article-id="2">
+            <img src="image/mot3_cranevache.png" alt="Article 3" class="article-thumbnail" data-article-id="3">
+            <img src="image/mot4_poseurEncre.png" alt="Article 4" class="article-thumbnail" data-article-id="4">
+        </div>
 
-    <div class="article-details">
-        <!-- Les détails de l'article seront affichés ici -->
-    </div>
-</body>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modal-header">
+                    <h2 id="modal-title"></h2>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="" id="modal-image">
+                    <p id="modal-description"></p>
+                </div>
+            </div>
+        </div>
+        <div class="article-container">
+            <img src="image/mot1_punkachat.png" alt="Article 1" class="article-thumbnail" data-article-id="1">
+            <!-- Ajoutez une classe CSS pour activer l'animation -->
+            <img src="image/mot1_punkachat.png" alt="Article 1" class="article-thumbnail active" data-article-id="1">
+            <!-- Autres images -->
+        </div>
+
+        <div id="modal" class="modal modal-animated">
+            <!-- Contenu de la modale -->
+        </div>
+    </body>
+    <script>
+        const articles = [
+            { id: 1, image: "image/mot1_punkachat.png", description: "Description de l'article 1" },
+            { id: 2, image: "image/mot2_voiture.png", description: "Description de l'article 2" },
+            { id: 3, image: "image/mot3_cranevache.png", description: "Description de l'article 3" },
+            { id: 4, image: "image/mot4_poseurEncre.png", description: "Description de l'article 4" }
+        ];
+        const thumbnails = document.querySelectorAll(".article-thumbnail");
+        const modal = document.getElementById("modal");
+        const modalContent = document.querySelector(".modal-content");
+        const modalImage = document.getElementById("modal-image");
+        const modalDescription = document.getElementById("modal-description");
+        const close = document.querySelector(".close");
+
+        thumbnails.forEach(function(thumbnail) {
+            thumbnail.addEventListener("click", function() {
+                const articleId = thumbnail.getAttribute("data-article-id");
+                const article = articles.find(a => a.id === articleId);
+
+                // Supprimez les détails de l'article précédent, s'il y en avait un
+                modalContent.innerHTML = "";
+
+                // Ajoutez les détails de l'article actuel
+                if (article) {
+                    modalImage.src = article.image;
+                    modalDescription.textContent = article.description;
+                    modalContent.appendChild(modalImage);
+                    modalContent.appendChild(modalDescription);
+                    modal.style.display = "block";
+                }
+            });
+        });
+
+        close.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+</html>
