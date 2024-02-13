@@ -34,10 +34,21 @@ try
     </form>
     <div>
     <div><h2>Filtres</h2></div>
-    <div><i class="sexe"></div>
-    <div><i class="motif"></div>
-    <div><i class="type"></div>
-    <div><i class="taille"></div>
+    <div><i class="sexe"></i><div>Sexe</div></div>
+    <div><i class="motif"></i><div>Motif</div></div>
+    <div><i class="type"></i><div>Type</div></div>
+    <div><i class="taille"></i><div>Taille</div></div>
     </div>
     
+    <!--image de l'accueil-->
+    <div class="article-container">
+        <img src="article1.jpg" alt="Article 1" class="article-thumbnail" data-article-id="1">
+        <img src="article2.jpg" alt="Article 2" class="article-thumbnail" data-article-id="2">
+        <img src="article3.jpg" alt="Article 3" class="article-thumbnail" data-article-id="3">
+        <img src="article4.jpg" alt="Article 4" class="article-thumbnail" data-article-id="4">
+    </div>
+
+    <div class="article-details">
+        <!-- Les détails de l'article seront affichés ici -->
+    </div>
 </body>
