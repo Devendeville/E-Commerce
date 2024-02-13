@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Inscription</title>
-	<link rel="stylesheet" type="text/css" href="Inscription-E.css"'?v=' +  Date.now()/>
+	<link rel="stylesheet" type="text/css" href="Inscription-E.css"/>
 </head>
 
 <?php
