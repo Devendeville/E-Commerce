@@ -12,7 +12,7 @@ body {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgb(40, 94, 145);
+    background-color: rgb(226, 231, 236);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 40px;
 }
@@ -30,7 +30,7 @@ label
     display: block;
     margin-bottom: 10px;
     font-family: Arial, Helvetica, sans-serif;
-    color: rgb(184, 8, 8);
+    color: rgb(0, 0, 0);
 }
 
 input 
