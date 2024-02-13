@@ -10,6 +10,11 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+a {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(184, 8, 8);
+  text-decoration: none;
+}
 .formulaire {
     max-width: 400px;
     margin: 0 auto;
@@ -23,11 +28,6 @@ body {
     text-align: center;
     margin-bottom: 20px;
     font-family: Arial, Helvetica, sans-serif;
-  }
-
-  p{
-    font-size: 18px;
-    line-height: 1.5;
   }
 
   img {
