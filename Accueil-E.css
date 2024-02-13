@@ -5,6 +5,7 @@
 body {
     background-color: rgb(255, 233, 220);
     font-family: Arial, Helvetica, sans-serif;
+
   }
   
 h1 
@@ -39,10 +40,18 @@ input[type="submit"]:hover
     border-radius: 15px;
     
 }
+.button-group{
+    display: flex;
+    justify-content: flex-end;
+
+}
 
 .submit:hover{
-  filter: brightness(1.1);
+    background-color: rgb(184,8,8);
+    filter: brightness(1.1);
+
 }
+
 
 .input img
 {
@@ -71,3 +80,34 @@ input[type="submit"]:hover
         padding: 10px 10px;
     }
 }
+#search-form {
+    margin-bottom: 20px;
+    text-align: center;
+    
+  }
+  
+  #search-input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    border-collapse: collapse;
+  }
+  
+  #search-results {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  #search-results th,
+  #search-results td {
+    padding: 10px;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    border-collapse: collapse;
+  }
+  
+  #search-results th {
+    background-color: #ccc;
+    border-collapse: collapse;
+  }

@@ -15,16 +15,34 @@ try
 } catch (Exception $e)
 {
 	die('Erreur  : ' . $e->getMessage());
-}          
+}
 ?>
 <body>
+
     <h1>Le monde est vache</h1>
+    <div class="button-group">
+        <input type="submit" name="Inscription" value="Inscription"class="submit">
+        <input type="submit" name="Inscription" value="Connexion"classe="submit">
+    </div>
     <div class = "formulaire">
         <form method ="POST">
-            
-
         </form>
-        <a href="http://localhost/E-Commerce/Connexion-E.php">Connexion</a>
-        <a href="http://localhost/E-Commerce/Inscription-E.php">Inscription</a>
     </div>
+    <form id="search-form">
+        <input type="text" id="search-input" placeholder="Rechercher...">
+        <input type="submit" value="Rechercher">
+    </form>
+
+    <table id="search-results">
+        <thead>
+            <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Résultats de recherche seront affichés ici -->
+        </tbody>
+    </table>
 </body>
