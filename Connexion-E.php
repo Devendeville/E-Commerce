@@ -20,20 +20,7 @@ try {
     <h1>Formulaire de connexion</h1>
     <div class = formulaire>
         <form method="post">
-            <p>
-                <label for="mail">Adresse e-mail</label>
-                <input type="email" id="mail" name="e-mail" placeholder = "Adresse e-mail" required>
-            </p>
-            <p>
-                <label for="mot de passe">Mot de passe</label>
-                <input type="password" id="mdp" name="e-mdp" placeholder = "Mot de passe" required>
-                <img src="red_eye.png" id="eye" onclick="changer()" width="20" height="20">
-            </p>
-            <p>
-                <input type="submit" name="Valider" value="Valider">
-            </p>
-            <p>
-                <?php
+        <?php
                 if(isset($_POST["Valider"]))
                 {
                     $email=$_POST["e-mail"];
@@ -59,6 +46,17 @@ try {
                     }
                 }
                 ?>
+            <p>
+                <label for="mail">Adresse e-mail</label>
+                <input type="email" id="mail" name="e-mail" placeholder = "Adresse e-mail" required>
+            </p>
+            <p>
+                <label for="mot de passe">Mot de passe</label>
+                <input type="password" id="mdp" name="e-mdp" placeholder = "Mot de passe" required>
+                <img src="red_eye.png" id="eye" onclick="changer()" width="20" height="20">
+            </p>
+            <p>
+                <input type="submit" name="Valider" value="Valider">
             </p>
         </form>
         <a href="http://localhost/E-Commerce/Inscription-E.php">S'inscrire →</a>
