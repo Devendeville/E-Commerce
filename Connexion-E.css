@@ -9,7 +9,7 @@ body {
 
 .formulaire 
 {
-    max-width: 100%;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: rgb(226, 229, 236);
