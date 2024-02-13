@@ -1,13 +1,6 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-	<meta charset="utf-8">
-	<title>Accueil-E</title>
-	<link rel="stylesheet" type="text/css" href="Accueil-E.css"/>
-</head>
+<?php 
+session_start(); 
 
-<?php
 try 
 {
 	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
@@ -17,6 +10,13 @@ try
 	die('Erreur  : ' . $e->getMessage());
 }
 ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Accueil-E</title>
+	<link rel="stylesheet" type="text/css" href="Accueil-E.css"/>
+</head>
 <body>
 
     <h1>Le monde est vache</h1>
@@ -29,20 +29,15 @@ try
         </form>
     </div>
     <form id="search-form">
-        <input type="text" id="search-input" placeholder="Rechercher...">
+        <input type="text" id="search-input" placeholder="Rechercher..." placeholder="Rechercher...">
         <input type="submit" value="Rechercher">
     </form>
-
-    <table id="search-results">
-        <thead>
-            <tr>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Téléphone</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Résultats de recherche seront affichés ici -->
-        </tbody>
-    </table>
+    <div>
+    <div><h2>Filtres</h2></div>
+    <div><i class="sexe"></div>
+    <div><i class="motif"></div>
+    <div><i class="type"></div>
+    <div><i class="taille"></div>
+    </div>
+    
 </body>
