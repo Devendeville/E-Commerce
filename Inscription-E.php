@@ -18,7 +18,7 @@ try {
 }          
 ?>
 <body>
-    <h1>Inscription</h1>
+    <h1>S'inscrire</h1>o
     <div class="formulaire">
         <form method="POST">
             <?php

@@ -19,33 +19,61 @@ try {
 <body>
     <h1>Formulaire de connexion</h1>
     <div class = formulaire>
-        <form method="post">
-        <?php
-                if(isset($_POST["Valider"]))
-                {
-                    $email=$_POST["e-mail"];
-                    $mdp=$_POST["e-mdp"];
 
-                    $QueryConnexion = "SELECT IdClt, MdpClt, E_mailClt FROM client WHERE E_mailClt = :email";
-                    $rq_connexion = $mysqlClient->prepare($QueryConnexion);
-                    $rq_connexion->bindParam(':email',$email,PDO::PARAM_STR);
-                    $rq_connexion->execute();
-                    $user = $rq_connexion->fetch(PDO::FETCH_ASSOC);
-                    if ($user === false) {
-                        echo 'Aucun compte trouvé avec cette adresse email.';
-                    } else {
-                        if (password_verify($mdp,$user['MdpClt']))
-                        {
-                            $_SESSION['IdClt'] = $user['IdClt'];
-                            header("Location: Inscription-E.php");
-                            exit();
-                        }else 
-                        {
-                            echo 'Mot de passe invalide';
-                        }
+        <form method="post">
+            <?php
+            if(isset($_POST["Valider"]))
+            {
+                $email=$_POST["e-mail"];
+                $mdp=$_POST["e-mdp"];
+                $resultat = $mysqlClient->query ("SELECT * FROM client WHERE E_mailClt = '$email'");
+                $row = $resultat->fetch(PDO::FETCH_ASSOC);
+                if(password_verify($mdp, $row['MdpClt']))
+                {
+                    header("location : h");
+                    exit();
+                }
+                else
+                {
+                    if(isset($NBessaie))
+                    {
+                        $NBessaie++;
+                    }
+                    else
+                    {
+                        $NBessaie = 1;
                     }
                 }
-                ?>
+                if($NBessaie>=3)
+                {
+                    echo 'Contacter un responsable du site.';
+                    unset($_SESSION['$NBessaie']);
+                }
+
+                
+                $QueryConnexion = "SELECT IdClt, MdpClt, E_mailClt FROM client WHERE E_mailClt = :email";
+                $rq_connexion = $mysqlClient->prepare($QueryConnexion);
+                $rq_connexion->bindParam(':email',$email,PDO::PARAM_STR);
+                $rq_connexion->execute();
+                $user = [];
+                while ($ligne = $rq_connexion->fetch(PDO::FETCH_ASSOC)){
+                    $user[] = $ligne;
+                }
+                if (empty($user)) {
+                    echo 'Aucun compte trouvé avec cette adresse email.';
+                } else {
+                    if (password_verify($mdp,$user[0]['MdpClt']))
+                    {
+                        $_SESSION['IdClt'] = $user[0]['IdClt'];
+                        header("Location: Accueil-E.php");
+                        exit();
+                    }else 
+                    {
+                        echo 'Mot de passe invalide';
+                    }
+                }
+            }
+            ?>
             <p>
                 <label for="mail">Adresse e-mail</label>
                 <input type="email" id="mail" name="e-mail" placeholder = "Adresse e-mail" required>
