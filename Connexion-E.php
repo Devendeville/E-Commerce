@@ -26,7 +26,9 @@ try {
             {
                 $email=$_POST["e-mail"];
                 $mdp=$_POST["e-mdp"];
-                $resultat = $mysqlClient->query ("SELECT * FROM client WHERE E_mailClt = '$email'");
+                $QueryConnexion = "SELECT * FROM client WHERE E_mailClt = :email";
+                $resultat = $mysqlClient->prepare($QueryConnexion);
+                $resultat->execute([':email' => $email]);
                 $row = $resultat->fetch(PDO::FETCH_ASSOC);
                 if(password_verify($mdp, $row['MdpClt']))
                 {
@@ -35,19 +37,19 @@ try {
                 }
                 else
                 {
-                    if(isset($NBessaie))
+                    if(!isset($NBessaie))
                     {
-                        $NBessaie++;
-                    }
-                    else
-                    {
-                        $NBessaie = 1;
+                        $NBessaie = 0;
                     }
                 }
-                if($NBessaie>=3)
+                if(++$NBessaie>=3)
                 {
                     echo 'Contacter un responsable du site.';
-                    unset($_SESSION['$NBessaie']);
+                    unset($_SESSION['NBessaie']);
+                }
+                else
+                {
+                    $_SESSION['NBessaie'] = $NBessaie;
                 }
 
                 
