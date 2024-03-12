@@ -3,10 +3,12 @@ session_start();
 
 try 
 {
+	// Connexion à la base de données
 	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
 	$mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 } catch (Exception $e)
 {
+	// Affichage d'une erreur en cas d'exception
 	die('Erreur  : ' . $e->getMessage());
 }
 ?>
@@ -21,26 +23,29 @@ try
 
         <h1>Le monde est vache</h1>
         <div class="button-group">
-            <input type="submit" name="Inscription" value="Inscription"class="submit">
-            <input type="submit" name="Inscription" value="Connexion"classe="submit">
+            <a href="Inscription-E.php" class="submit">
+                <input type="button" name="Inscription" value="Inscription">
+            </a>
+            <a href="Connexion-E.php" class="submit">
+                <input type="button" name="Connexion" value="Connexion">
+            </a>
         </div>
         <div class = "formulaire">
             <form method ="POST">
             </form>
         </div>
         <form id="search-form">
-            <input type="text" id="search-input" placeholder="Rechercher..." placeholder="Rechercher...">
-            <input type="submit" value="Rechercher">
+            <input type="text" id="search-input" name="search" placeholder="Rechercher...">
         </form>
         <div class="filtre">
         <div><h2>Filtres</h2></div>
-        <div><img src="image/sexe.png" class="sexe"><div>Sexe</div></div>
-        <div><img src="image/motif.png" class="motif"><div>Motif</div></div>
-        <div><img src="image/type.png" class="type"><div>Type</div></div>
-        <div><img src="image/taille.png" class="taille"><div>Taille</div></div>
+        <div><img src="image/sexe.png" alt="Icône Sexe"class="sexe"><div>Sexe</div></div>
+        <div><img src="image/motif.png" alt="Icône Motif" class="motif"><div>Motif</div></div>
+        <div><img src="image/type.png" alt="Icône Type" class="type"><div>Type</div></div>
+        <div><img src="image/taille.png" alt="Icône Taille" class="taille"><div>Taille</div></div>
         </div>
     
-        <!--image de l'accueil-->
+        <!-- Images de l'accueil -->
         <div class="article-container">
             <img src="image/mot1_punkachat.png" alt="Article 1" class="article-thumbnail" data-article-id="1">
             <img src="image/mot2_voiture.png" alt="Article 2" class="article-thumbnail" data-article-id="2">
@@ -53,7 +58,7 @@ try
                 <span class="close">&times;</span>
                 <div class="modal-header">
                     <h2 id="modal-title"></h2>
-                </div>
+              </div>
                 <div class="modal-body">
                     <img src="" alt="" id="modal-image">
                     <p id="modal-description"></p>
@@ -67,9 +72,6 @@ try
             <!-- Autres images -->
         </div>
 
-        <div id="modal" class="modal modal-animated">
-            <!-- Contenu de la modale -->
-        </div>
     </body>
     <script>
         const articles = [

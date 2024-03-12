@@ -5,123 +5,111 @@
 body {
     background-color: rgb(255, 233, 220);
     font-family: Arial, Helvetica, sans-serif;
+}
 
-  }
-  
-h1 
-{
+h1 {
     text-align: center;
     margin-bottom: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-  
-label 
-{
-    display: block;
-    margin-bottom: 10px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
-input 
-{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+.button-group {
+    display: flex;
+    justify-content: flex-end;
 }
-  
-input[type="submit"]:hover
-{
+
+.submit {
     padding: 10px 20px;
     background-color: rgb(184, 8, 8);
     color: #fff;
     border: none;
     cursor: pointer;
     border-radius: 15px;
-    
-}
-.button-group{
-    display: flex;
-    justify-content: flex-end;
-
+    margin-right: 10px;
 }
 
-.submit:hover{
-    background-color: rgb(184,8,8);
-    filter: brightness(1.1);
-
+.submit:hover {
+    background-color: rgb(153, 0, 0);
 }
 
+.formulaire {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
 
-.input img
-{
-    height: 1px;
+.formulaire label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.formulaire input[type="text"],
+.formulaire input[type="email"],
+.formulaire input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.formulaire input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(184, 8, 8);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    vertical-align: middle;
 }
-@media (max-width: 768px) {
-    .formulaire {
-        padding: 10px;
-    }
 
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    label {
-        font-size: 1rem;
-    }
-
-    input {
-        padding: 5px;
-    }
-
-    input[type="submit"] {
-        padding: 10px 10px;
-    }
+.formulaire input[type="submit"]:hover {
+    background-color: rgb(153, 0, 0);
 }
+
 #search-form {
     margin-bottom: 20px;
     text-align: center;
-    
-  }
-  
-  #search-input {
+}
+
+#search-input {
     width: 50%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
     border-collapse: collapse;
-  }
-  
-  #search-results {
+}
+
+#search-results {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  #search-results th,
-  #search-results td {
+}
+
+#search-results th,
+#search-results td {
     padding: 10px;
     border: 2px solid #000000;
     border-radius: 10px;
     border-collapse: collapse;
-  }
-  
-  #search-results th {
+}
+
+#search-results th {
     background-color: #ccc;
     border-collapse: collapse;
-  }
-  /* Filtrages */
-  .filtre {
+}
+
+.filtre {
     display: flex;
     align-items: center;
     margin-top: 50px;
     margin-bottom: 40px;
-    
-  }
+}
 
-  /*CSS pour le javascrypt*/
-  .modal {
+.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -131,69 +119,71 @@ input[type="submit"]:hover
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 800px;
-  }
-  
-  .close {
+}
+
+.close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-  .modal-header {
+}
+
+.modal-header {
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  .modal-header h2 {
+}
+
+.modal-header h2 {
     margin: 0;
-  }
-  
-  .modal-body {
+}
+
+.modal-body {
     margin-bottom: 20px;
-  }
-  
-  .modal-body img {
+}
+
+.modal-body img {
     max-width: 100%;
     height: auto;
-  }
-  .modal-animated .modal-content {
-    /* Modifiez la taille de l'image et la position de la modale */
+}
+
+.modal-animated .modal-content {
     transform: scale(2);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
-  
-  .modal-animated .modal-content img {
-    /* Modifiez la taille de l'image */
+}
+
+.modal-animated .modal-content img {
     max-width: 100%;
     height: auto;
     width: 100%;
-  }
-  
-  /* Ajoutez une animation pour agrandir l'image */
-  @keyframes zoom {
-    0% { transform: scale(1); }
-    100% { transform: scale(2); }
-  }
-  
-  .modal-animated .modal-content {
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(2);
+    }
+}
+
+.modal-animated .modal-content {
     animation: zoom 0.5s ease;
-  }
+}
