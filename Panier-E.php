@@ -1,6 +1,5 @@
 <?php 
 session_start(); 
-include_once("fonctions-panier.php");
 try 
 {
 	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
@@ -9,7 +8,24 @@ try
 {
 	die('Erreur  : ' . $e->getMessage());
 }
+// Check if the form has been submitted
+if (isset($_POST['ajouter'])) {
+    // Get the article data from the form
+    $libelleProduit = $_POST['l'];
+    $prixProduit = $_POST['p'];
+    $qteProduit = $_POST['q'];
 
+    // Add the article to the cart
+    for ($i = 0; $i < count($libelleProduit); $i++) {
+        ajouterArticle($libelleProduit[$i], $qteProduit[$i], $prixProduit[$i]);
+    }
+
+    // Redirect back to the Accueil-E.php page
+    header('Location: Accueil-E.php');
+    exit;
+}
+
+// Rest of the code for displaying the cart
 include_once("Fonctions-Panier.php");
 
 $erreur = false;
@@ -84,7 +100,6 @@ if (!$erreur){
                 <td>Libellé</td>
                 <td>Quantité</td>
                 <td>Prix Unitaire</td>
-                <td>Action</td>
             </tr>
             <?php
             if (creationPanier())

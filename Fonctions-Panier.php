@@ -97,5 +97,4 @@ function compterArticles()
     else
     return 0;
 }
-
 ?>
