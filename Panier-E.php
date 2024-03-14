@@ -1,5 +1,8 @@
 <?php 
-session_start(); 
+session_start();
+
+include_once("Fonctions-Panier.php");
+
 try 
 {
 	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
@@ -8,24 +11,24 @@ try
 {
 	die('Erreur  : ' . $e->getMessage());
 }
-// Check if the form has been submitted
+// Vérifiez si le formulaire a été soumis
 if (isset($_POST['ajouter'])) {
-    // Get the article data from the form
-    $libelleProduit = $_POST['l'];
-    $prixProduit = $_POST['p'];
-    $qteProduit = $_POST['q'];
+    // Obtenez les détails du produit à partir du formulaire
+    $NomPrd = $_POST['l'];
+    $PrixPrd = $_POST['p'];
+    $Quantite= $_POST['q'];
 
-    // Add the article to the cart
-    for ($i = 0; $i < count($libelleProduit); $i++) {
-        ajouterArticle($libelleProduit[$i], $qteProduit[$i], $prixProduit[$i]);
+    // Ajouter le produit au panier
+    for ($i = 0; $i < count($NomPrd); $i++) {
+        ajouterArticle($NomPrd[$i], $Quantite[$i], $PrixPrd[$i]);
     }
 
-    // Redirect back to the Accueil-E.php page
+    // Rediriger vers la page Accueil-E.php
     header('Location: Accueil-E.php');
     exit;
 }
 
-// Rest of the code for displaying the cart
+// Reste du code pour afficher le panier
 include_once("Fonctions-Panier.php");
 
 $erreur = false;
@@ -37,7 +40,7 @@ if($action !== null)
    $erreur=true;
 
    //récupération des variables en POST ou GET
-   $l = (isset($_POST['l'])? $_POST['l']:  (isset($_GET['l'])? $_GET['l']:null )) ;
+   $l = (isset($_POST['l'])? $_POST['l']:  (isset($_GET['l'])? $_GET['l']:'' )) ;
    $p = (isset($_POST['p'])? $_POST['p']:  (isset($_GET['p'])? $_GET['p']:null )) ;
    $q = (isset($_POST['q'])? $_POST['q']:  (isset($_GET['q'])? $_GET['q']:null )) ;
 
@@ -73,7 +76,7 @@ if (!$erreur){
       Case "refresh" :
          for ($i = 0 ; $i < count($QteArticle) ; $i++)
          {
-            modifierQTeArticle($_SESSION['panier']['libelleProduit'][$i],round($QteArticle[$i]));
+            modifierQTeArticle($_SESSION['panier']['NomPrd'][$i],round($QteArticle[$i]));
          }
          break;
 
@@ -91,7 +94,7 @@ if (!$erreur){
 	    <link rel="stylesheet" type="text/css" href="Panier-E.css"/>
     </head>
     <body>
-        <form method="post" action="panier.php">
+        <form method="post" action="Panier-E.php">
             <table style="width: 400px">
             <tr>
                 <td colspan="4">Votre panier</td>
@@ -104,7 +107,7 @@ if (!$erreur){
             <?php
             if (creationPanier())
             {
-                $nbArticles=count($_SESSION['panier']['libelleProduit']);
+                $nbArticles=count($_SESSION['panier']['NomPrd']);
                 if ($nbArticles <= 0)
                 echo "<tr><td>Votre panier est vide </ td></tr>";
                 else
@@ -112,10 +115,10 @@ if (!$erreur){
                     for ($i=0 ;$i < $nbArticles ; $i++)
                     {
                         echo "<tr>";
-                        echo "<td>".htmlspecialchars($_SESSION['panier']['libelleProduit'][$i])."</ td>";
-                        echo "<td><input type=\"text\" size=\"4\" name=\"q[]\" value=\"".htmlspecialchars($_SESSION['panier']['qteProduit'][$i])."\"/></td>";
-                        echo "<td>".htmlspecialchars($_SESSION['panier']['prixProduit'][$i])."</td>";
-                        echo "<td><a href=\"".htmlspecialchars("panier.php?action=suppression&l=".rawurlencode($_SESSION['panier']['libelleProduit'][$i]))."\">XX</a></td>";
+                        echo "<td>".htmlspecialchars($_SESSION['panier']['NomPrd'][$i])."</ td>";
+                        echo "<td><input type=\"text\" size=\"4\" name=\"q[]\" value=\"".htmlspecialchars($_SESSION['panier']['Quantite'][$i])."\"/></td>";
+                        echo "<td>".htmlspecialchars($_SESSION['panier']['PrixPrd'][$i])."</td>";
+                        echo "<td><a href=\"".htmlspecialchars("Panier-E.php?action=suppression&l=".rawurlencode($_SESSION['panier']['NomPrd'][$i]))."\">XX</a></td>";
                         echo "</tr>";
                     }
 

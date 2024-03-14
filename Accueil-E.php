@@ -4,7 +4,12 @@ session_start();
 try 
 {
 	// Connexion à la base de données
-	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
+	$host = 'localhost:3306';
+    $dbname = 'le_monde_est_vache';
+    $user = 'root';
+    $password = '';
+
+    $mysqlClient = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
 	$mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 } catch (Exception $e)
 {
@@ -21,7 +26,7 @@ if (empty($produits))
     echo "Error: No data found.";
 } else 
 {
-    // Display the products
+    // afficher les produits
     for ($i = 0; $i < count($produits); $i++) {
         // ...
     }
@@ -49,19 +54,22 @@ if (empty($produits))
             <input type="text" id="search-input" name="search" placeholder="Rechercher...">
         </form>
         <div class="formulaire">
-            <form method="POST" action="panier.php">
+            <form method="POST" action="Panier-E.php">
                 <?php
                 // Parcourez les articles et affichez chacun d'eux avec un formulaire
                 for ($i = 0; $i < count($produits); $i++) {
                     echo '<div class="article">';
-                    echo '<h2>' . htmlspecialchars($produits[$i]['libelleProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</h2>';
-                    echo '<p>Prix: ' . htmlspecialchars($produits[$i]['prixProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</p>';
-                    echo '<input type="hidden" name="l[]" value="' . htmlspecialchars($produits[$i]['libelleProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">';
-                    echo '<input type="hidden" name="p[]" value="' . htmlspecialchars($produits[$i]['prixProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">';
+                    echo '<h2>' . htmlspecialchars($produits[$i]['NomPrd'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</h2>';
+                    echo '<p>Prix: ' . htmlspecialchars($produits[$i]['PrixPrd'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</p>';
+                    echo '<input type="hidden" name="l[]" value="' . htmlspecialchars($produits[$i]['NomPrd'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">';
+                    echo '<input type="hidden" name="p[]" value="' . htmlspecialchars($produits[$i]['PrixPrd'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">';
                     echo '<label for="q' . $i . '">Quantité:</label>';
-                    echo '<input type="number" id="q' . $i . '" name="q[]" min="1" value="1">';
+                    echo '<input type="number" id="q' . $i . '" name="q[]" min="0" value="0">';
                     echo '<input type="submit" name="ajouter" value="Ajouter">';
                     echo '</div>';
+                    if (isset($_POST['ajouter'])) {
+                        ajouterArticle($produits[$i]['NomPrd'], 1, $produits[$i]['PrixPrd']);
+                    }
                 }
                 ?>
             </form>
