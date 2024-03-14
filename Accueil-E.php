@@ -45,28 +45,26 @@ if (empty($produits))
                 <input type="button" name="Connexion" value="Connexion">
             </a>
         </div>
-        <div class = "formulaire">
-            <form method ="POST" action="panier.php">
-            <?php
-            
-            // Parcourez les articles et affichez chacun d'eux avec un formulaire
-            for ($i = 0; $i < count($produits); $i++) {
-                echo '<div class="article">';
-                echo '<h2>' . htmlspecialchars($produits[$i]['libelleProduit']) . '</h2>';
-                echo '<p>Prix: ' . htmlspecialchars($produits[$i]['prixProduit']) . '</p>';
-                echo '<input type="hidden" name="l[]" value="' . htmlspecialchars($produits[$i]['libelleProduit']) . '">';
-                echo '<input type="hidden" name="p[]" value="' . htmlspecialchars($produits[$i]['prixProduit']) . '">';
-                echo '<label for="q' . $i . '">Quantité:</label>';
-                echo '<input type="number" id="q' . $i . '" name="q[]" min="1" value="1">';
-                echo '<input type="submit" name="ajouter" value="Ajouter">';
-                echo '</div>';
-            }
-            ?>
-            </form>
-        </div>
         <form id="search-form">
             <input type="text" id="search-input" name="search" placeholder="Rechercher...">
         </form>
-
+        <div class="formulaire">
+            <form method="POST" action="panier.php">
+                <?php
+                // Parcourez les articles et affichez chacun d'eux avec un formulaire
+                for ($i = 0; $i < count($produits); $i++) {
+                    echo '<div class="article">';
+                    echo '<h2>' . htmlspecialchars($produits[$i]['libelleProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</h2>';
+                    echo '<p>Prix: ' . htmlspecialchars($produits[$i]['prixProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</p>';
+                    echo '<input type="hidden" name="l[]" value="' . htmlspecialchars($produits[$i]['libelleProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">';
+                    echo '<input type="hidden" name="p[]" value="' . htmlspecialchars($produits[$i]['prixProduit'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">';
+                    echo '<label for="q' . $i . '">Quantité:</label>';
+                    echo '<input type="number" id="q' . $i . '" name="q[]" min="1" value="1">';
+                    echo '<input type="submit" name="ajouter" value="Ajouter">';
+                    echo '</div>';
+                }
+                ?>
+            </form>
+        </div>
     </body>
 </html>
