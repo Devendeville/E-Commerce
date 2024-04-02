@@ -8,9 +8,10 @@
 </head>
 
 <?php
+// Connexion à la base de données
 try {
 	
-	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
+	$mysqlClient = new PDO('mysql:host=localhost:3307;dbname=le_monde_est_vache;charset=utf8', 'root', '');
 	$mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 } catch (Exception $e)
 {
@@ -18,10 +19,11 @@ try {
 }          
 ?>
 <body>
-    <h1>S'inscrire</h1>o
+    <h1>S'inscrire</h1>
     <div class="formulaire">
         <form method="POST">
             <?php
+            // Traitement du formulaire si le bouton "Continue" a été soumis
             if (isset($_POST["Continue"])) 
             {
                 $nom = $_POST["u_nom"];
@@ -29,6 +31,7 @@ try {
                 $email = $_POST["u_mail"];
                 $mdp = password_hash($_POST["u_mdp"], PASSWORD_DEFAULT);
                            
+                    // Vérifier si l'email existe déjà dans la base de données
                     $QueryVerifEmail = "SELECT COUNT(*) as nb FROM client WHERE E_mailClt = :email";
                     $rq_verif_email = $mysqlClient->prepare($QueryVerifEmail);
                     $rq_verif_email->bindParam(':email', $email, PDO::PARAM_STR);
@@ -37,13 +40,14 @@ try {
                     if ($verif_email['nb'] > 0) {
                         echo"<p>Cette adresse email est déjà utilisée.</p>";
                     } else {
+                        // Insertion des données dans la base de données
                         $QuerySignUp = "INSERT INTO client(NomClt, PrenomClt, E_mailClt, MdpClt) VALUES (?, ?, ?, ?)";
                         $RecupLog = $mysqlClient->prepare($QuerySignUp);
                         $RecupLog->execute([$nom, $prenom, $email, $mdp]);
                         // Stocker l'ID de l'utilisateur dans la session
                         $_SESSION['IdClt'] = $mysqlClient->lastInsertId();
                         // Redirige vers la page de connexion
-                        header("Location: Connexion-E.php");
+                        header("Location: Accueil-E.php");
                     }
                 }
             ?>

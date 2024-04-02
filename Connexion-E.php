@@ -1,4 +1,15 @@
 <?php session_start(); ?>
+
+<?php
+try {
+	
+	$mysqlClient = new PDO('mysql:host=localhost:3307;dbname=le_monde_est_vache;charset=utf8', 'root', '');
+	$mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+} catch (Exception $e) 
+{
+	die('Erreur  : ' . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,73 +17,35 @@
     <title>Connexion</title>
     <link rel="stylesheet"  type="text/css" href="Connexion-E.css">
 </head>
-<?php
-try {
-	
-	$mysqlClient = new PDO('mysql:host=localhost:3306;dbname=le_monde_est_vache;charset=utf8', 'root', '');
-	$mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-} catch (Exception $e) 
-{
-	die('Erreur  : ' . $e->getMessage());
-}
-?>
 <body>
     <h1>Formulaire de connexion</h1>
     <div class = formulaire>
-
         <form method="post">
             <?php
             if(isset($_POST["Valider"]))
             {
+                // Récupère les données saisies par l'utilisateur
                 $email=$_POST["e-mail"];
                 $mdp=$_POST["e-mdp"];
+
+                // Vérifie si les identifiants sont corrects
                 $QueryConnexion = "SELECT * FROM client WHERE E_mailClt = :email";
                 $resultat = $mysqlClient->prepare($QueryConnexion);
-                $resultat->execute([':email' => $email]);
+                $resultat->bindParam(':email', $email, PDO::PARAM_STR);
+                $resultat->execute();
                 $row = $resultat->fetch(PDO::FETCH_ASSOC);
-                if(password_verify($mdp, $row['MdpClt']))
+                if($row && password_verify($mdp, $row['MdpClt']))
                 {
-                    header("location : h");
-                    exit();
+                    // Redirige l'utilisateur vers la page d'accueil s'il est connecté
+                    $_SESSION['IdClt'] = $row['IdClt'];
+                  // header("Location: Accueil-E.php");
+                  header("Location: Accueil-E.php");
+                    //exit();
                 }
                 else
                 {
-                    if(!isset($NBessaie))
-                    {
-                        $NBessaie = 0;
-                    }
-                }
-                if(++$NBessaie>=3)
-                {
-                    echo 'Contacter un responsable du site.';
-                    unset($_SESSION['NBessaie']);
-                }
-                else
-                {
-                    $_SESSION['NBessaie'] = $NBessaie;
-                }
-
-                
-                $QueryConnexion = "SELECT IdClt, MdpClt, E_mailClt FROM client WHERE E_mailClt = :email";
-                $rq_connexion = $mysqlClient->prepare($QueryConnexion);
-                $rq_connexion->bindParam(':email',$email,PDO::PARAM_STR);
-                $rq_connexion->execute();
-                $user = [];
-                while ($ligne = $rq_connexion->fetch(PDO::FETCH_ASSOC)){
-                    $user[] = $ligne;
-                }
-                if (empty($user)) {
-                    echo 'Aucun compte trouvé avec cette adresse email.';
-                } else {
-                    if (password_verify($mdp,$user[0]['MdpClt']))
-                    {
-                        $_SESSION['IdClt'] = $user[0]['IdClt'];
-                        header("Location: Accueil-E.php");
-                        exit();
-                    }else 
-                    {
-                        echo 'Mot de passe invalide';
-                    }
+                    // Affiche un message d'erreur si les identifiants sont incorrects
+                    echo 'Identifiants invalides';
                 }
             }
             ?>
@@ -98,15 +71,14 @@ try {
                 if(e)
                 {
                     document.getElementById("mdp").setAttribute("type","text");
-                    document.getElementById("eye").src="green_eye.png";
+                    document.getElementById("eye").src="image/green_eye.png";
                     e=false;
                 }
                 else
                 {
                     document.getElementById("mdp").setAttribute("type","password");
-                    document.getElementById("eye").src="red_eye.png";
-                    e=true;
-                }
+                    document.getElementById("eye").src="image/red_eye.png";
+                    e=true;}
             }
         </script>
     </div>
