@@ -65,7 +65,6 @@ if($action !== null)
 }
 
 // Traitement du panier en fonction de l'action sélectionnée
-// Traitement du panier en fonction de l'action sélectionnée
 if (!$erreur) {
     switch ($action) {
         Case "ajout":

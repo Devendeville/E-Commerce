@@ -31,6 +31,47 @@ if (empty($produits))
         // ...
     }
 }
+
+// Fonction pour ajouter une catégorie
+function ajouterType($nomType, $mysqlClient) {
+    $query = "INSERT INTO Type (NomTp) VALUES (:nomType)";
+    $stmt = $mysqlClient->prepare($query);
+    $stmt->bindParam(':nomType', $nomType, PDO::PARAM_STR);
+    return $stmt->execute();
+}
+
+
+// Traitement du formulaire d'ajout de catégorie
+if (isset($_POST['ajouter_Type'])) {
+    $nomType = $_POST['nom_Type'];
+    $resultat = ajouterType($nomType, $mysqlClient);
+
+    if ($resultat) {
+        echo "La catégorie a bien été ajoutée.";
+    } else {
+        echo "Une erreur est survenue.";
+    }
+}
+
+// Fonction pour supprimer une catégorie
+function supprimerType($idType, $mysqlClient) {
+    $query = "DELETE FROM Type WHERE IdTp = :idType";
+    $stmt = $mysqlClient->prepare($query);
+    $stmt->bindParam(':idType', $idType, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
+// Supprimer une catégorie si demandé
+if (isset($_POST['supprimer_Type'])) {
+    $idType = $_POST['TypeProduit'];
+    $resultat = supprimerType($idType, $mysqlClient);
+
+    if ($resultat) {
+        echo "La catégorie a bien été supprimée.";
+    } else {
+        echo "Une erreur est survenue.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -59,8 +100,29 @@ if (empty($produits))
             </a>
         </div>
         <div class="formulaire">
+            <form method="POST" action="">
+                <label for="nom-Type">Nom du Type :</label>
+                <input type="text" id="nom-Type" name="nom_Type" required>
+                <input type="submit" name="ajouter_Type" value="Ajouter Type">
+            </form>
             <form method="POST" action="Panier-E.php">
                 <?php 
+                $sql ="SELECT IdTp, NomTp FROM Type";
+                $result = $mysqlClient->query( $sql );
+                ?>
+                <select name="TypeProduit">
+                    <?php
+                    if ($result->rowCount() > 0){
+                        while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                            echo "<option value=\"".$row["IdTp"]."\">". $row["NomTp"]. "</option>";
+                        }
+                    }else{
+                        echo "0 results";
+                    }
+                    ?>
+                </select>
+                <input type="submit" name="supprimer_Type" value="Supprimer">
+                <?php
                 // Récupérer le nom de la taille à partir de l'identifiant
                 function getTypeName($idTaille, $mysqlClient) {
                     $query = "SELECT produit.IdPrd, produit.NomPrd, produit.IdTlle FROM produit JOIN taille ON produit.IdTlle = taille.IdTlle";
@@ -113,7 +175,9 @@ if (empty($produits))
                         ajouterArticle($produits[$i]['NomPrd'], 1, $produits[$i]['PrixPrd']);
                     }
                 }
-            
+                
+
+
                 ?>
             </form>
         </div>
